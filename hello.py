@@ -16,21 +16,27 @@ blue=(0,0,255)
 window_width=800
 window_hight=600
 l=[]
+
 #display surface
 wd=pygame.display.set_mode((window_width,window_hight))
 carimg=pygame.image.load('Screenshot (209).jpg')
 car1=pygame.transform.scale(carimg,(100,100))
 clock=pygame.time.Clock()
 
+#message to be printed on the window
 def message(mess,colour,size,x,y):
      font=pygame.font.SysFont(None,size)
      screen_text=font.render(mess,True,colour)
      wd.blit(screen_text,(x,y))
      pygame.display.update()
+
+#making load function to load images
 def load(name,x_pos,y_pos):
     v = pygame.image.load(name)
     wd.blit(v, (x_pos, y_pos))
     pygame.display.update()
+
+#making 2 switches displayed on the window
 def button(x,y,w,h,mess,mess_color,actc,noc,size,tx,ty,func):
     mouse = pygame.mouse.get_pos()
     click=  pygame.mouse.get_pressed()
@@ -50,7 +56,7 @@ def button(x,y,w,h,mess,mess_color,actc,noc,size,tx,ty,func):
 def quit1():
     pygame.quit()
     quit()
-
+#making a function for the game introduction i.e before game starts
 def game_intro():
 
   load('background 1.png', 0, 0)
@@ -77,10 +83,11 @@ def game_intro():
   pygame.display.update()
 
 def back():
-    blue_strip=pygame.image.load('road.png')
+    blue_strip=pygame.image.load('border.png')
     img=pygame.transform.scale(blue_strip,(100,600))
     wd.blit(img,(0,0))
     wd.blit(img,(700,0))
+# making a function for game over when car touches boundaries of the road
 def crash(x):
     if x<90  or x+90>700:
         font = pygame.font.SysFont(None, 100)
@@ -94,7 +101,7 @@ def crash(x):
                 pygame.quit()
                 quit()
         pygame.display.update()
-
+#making a function for crashed when player car collides with the other car
 def car_crash(x,y,y_en,x_en):
 
     if x<x_en+57<x+150 and (y<y_en+100<y+100 or y<y_en<y+100):
@@ -109,13 +116,13 @@ def car_crash(x,y,y_en,x_en):
 
 
 
-
+#making a function for score.
 def score(count):
     font = pygame.font.SysFont(None, 30)
     screen_text = font.render('score :' + str(count), True, white)
     wd.blit(screen_text, (0, 0))
     pygame.display.update()
-
+#putting random cars on road
 def other_car(y_en):
     enmy1=pygame.image.load('Screenshot (209).jpg')
     enmy=pygame.transform.scale(enmy1,(70,100))
@@ -129,7 +136,7 @@ def other_car(y_en):
     wd.blit(enmy,(x_en,y_en))
     pygame.display.update()
 
-
+#making the game
 def gameloop():
 
      x = 300
@@ -142,6 +149,7 @@ def gameloop():
      count = 0
      y_en=0
      while game_over==False:
+         #code for the functioning of right and left keys
          for i in pygame.event.get():
                  if i.type==pygame.QUIT:
                      game_over=True
